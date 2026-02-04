@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pierre Cochart | Helpful Web Tools</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    
+    <style>
+        /* --- RESET & VARS --- */
+        :root {
+            --google-blue: #1a73e8; /* Modern Google Blue */
+            --google-blue-hover: #1557b0;
+            --text-dark: #202124;
+            --text-grey: #5f6368;
+            --bg-color: #f8f9fa;
+            --card-border: #dadce0;
+            --card-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+            --card-hover: 0 4px 8px 3px rgba(60,64,67,0.15), 0 1px 3px 0 rgba(60,64,67,0.3);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Roboto', -apple-system, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* --- HERO & ABOUT SECTION --- */
+        .hero-section {
+            background: white;
+            border-bottom: 1px solid var(--card-border);
+            padding: 60px 20px 40px;
+            text-align: center;
+        }
+
+        .site-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin: 0 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .site-title .material-icons-outlined { font-size: 40px; color: var(--google-blue); }
+
+        .about-text {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: var(--text-grey);
+            font-size: 1.1rem;
+        }
+
+        .author-badge {
+            display: inline-flex;
+            align-items: center;
+            background: #e8f0fe;
+            color: var(--google-blue);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        /* Coffee Button Style */
+        .bmc-btn-link img {
+            height: 40px;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        .bmc-btn-link:hover img { transform: scale(1.05); }
+
+        /* --- LAYOUT GRID --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            margin-top: 40px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 10px;
+        }
+
+        .section-header h2 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .section-header .count {
+            background: var(--text-grey);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Responsive 3-wide */
+            gap: 24px;
+        }
+
+        /* --- CARD STYLES --- */
+        .tool-card {
+            background: white;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            height: 100%;
+        }
+
+        /* Hover Effect for Active Cards */
+        .tool-card.active:hover {
+            box-shadow: var(--card-hover);
+            transform: translateY(-2px);
+            border-color: transparent;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: #e8f0fe; /* Light Blue */
+            color: var(--google-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .icon-box .material-icons-outlined { font-size: 28px; }
+
+        .tool-card h3 {
+            margin: 0 0 8px;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .tool-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-grey);
+            flex-grow: 1; /* Pushes footer down */
+        }
+
+        .card-footer {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--google-blue);
+        }
+
+        .card-footer .arrow { margin-left: 5px; transition: margin 0.2s; }
+        .tool-card.active:hover .arrow { margin-left: 10px; }
+
+        /* --- IN DEVELOPMENT STYLES --- */
+        .tool-card.dev {
+            background: #fcfcfc;
+            border: 1px dashed var(--card-border);
+            opacity: 0.8;
+            cursor: default;
+        }
+
+        .tool-card.dev .icon-box {
+            background: #f1f3f4;
+            color: var(--text-grey);
+        }
+
+        .status-pill {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background: #f1f3f4;
+            color: var(--text-grey);
+            font-weight: 500;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-grey);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--card-border);
+            margin-top: 60px;
+            background: white;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .site-title { font-size: 2rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero-section">
+    <h1 class="site-title">
+        <span class="material-icons-outlined">handyman</span>
+        Helpful Web Tools
+    </h1>
+    
+    <div class="author-badge">Created by Pierre Cochart</div>
+    
+    <p class="about-text">
+        A collection of free, open-source utilities for developers and SEOs. 
+        Everything runs client-side in your browser—no data is ever uploaded.
+    </p>
+
+    <a href="https://www.buymeacoffee.com/PierreCochart" target="_blank" class="bmc-btn-link">
+        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee">
+    </a>
+</div>
+
+<div class="container">
+
+    <div class="section-header">
+        <h2>Available Now</h2>
+        <span class="count" style="background: var(--google-blue);">2</span>
+    </div>
+
+    <div class="grid">
+        <a href="https://pierrecochart.github.io/image-cropper/" class="tool-card active">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">crop</span></div>
+            </div>
+            <h3>Image Cropper</h3>
+            <p>Crop, resize, and convert images instantly in your browser. No server uploads required.</p>
+            <div class="card-footer">
+                Launch Tool <span class="arrow">→</span>
+            </div>
+        </a>
+
+        <a href="https://pierrecochart.github.io/SERP-Snippet-Viewer-Optimiser/" class="tool-card active">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">search</span></div>
+            </div>
+            <h3>SERP Simulator</h3>
+            <p>Preview and optimize how your website appears in Google search results (Desktop & Mobile).</p>
+            <div class="card-footer">
+                Launch Tool <span class="arrow">→</span>
+            </div>
+        </a>
+    </div>
+
+    <div class="section-header">
+        <h2>In Development</h2>
+        <span class="count">15</span>
+    </div>
+
+    <div class="grid">
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">segment</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>Word & Character Counter</h3>
+            <p>Real-time text analysis for SEO meta data and content length requirements.</p>
+        </div>
+        
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">schema</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>Schema Visualizer</h3>
+            <p>Visualize JSON-LD structure and dependencies.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">rule</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>Canonical & Robots Check</h3>
+            <p>Quick-check meta directives and conflict detection.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">cleaning_services</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>SVG Cleaner</h3>
+            <p>Client-side minifier to strip unnecessary SVG code.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">image</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>Code Screenshot</h3>
+            <p>Generate social-ready images of your code snippets.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">lock_open</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>JWT Debugger</h3>
+            <p>Offline token decoder and expiry checker.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">verified_user</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>SSL Decoder</h3>
+            <p>Decode certificate chains and view raw data.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">description</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>Gigabyte Log Viewer</h3>
+            <p>Efficiently browse massive log files without crashing.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">storage</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>SQL Anonymizer</h3>
+            <p>Sanitize SQL dumps for safe sharing.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">transform</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>CSV Streamer</h3>
+            <p>Convert CSV to JSON or SQL streams.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">share</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>Open Graph Generator</h3>
+            <p>Create and preview social meta tags.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">schedule</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>Cron Visualizer</h3>
+            <p>Visual interface for complex cron schedules.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">layers</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>CSS Shadow Tool</h3>
+            <p>Layered box-shadow generator and previewer.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">picture_as_pdf</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>PDF Split/Merge</h3>
+            <p>Local-only PDF manipulation tools.</p>
+        </div>
+
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">text_snippet</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>Client-Side OCR</h3>
+            <p>Extract text from images using local Tesseract.js.</p>
+        </div>
+        
+        <div class="tool-card dev">
+            <div class="card-header">
+                <div class="icon-box"><span class="material-icons-outlined">difference</span></div>
+                <span class="status-pill">Planned</span>
+            </div>
+            <h3>JSON Diff Tool</h3>
+            <p>Compare and highlight differences in JSON.</p>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 <a href="https://uk.linkedin.com/in/pierrecochart">Pierre Cochart</a>. Built with simple HTML & CSS | <a href="https://www.searchfoundry.co.uk">The Search Foundry</a></p>
+</footer>
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="PierreCochart" data-description="Support me on Buy me a coffee!" data-message="" data-color="#4285F4" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+</body>
+</html>
