@@ -1,3 +1,135 @@
+<style>
+/* ===== Header ===== */
+.site-header {
+  border-bottom: 1px solid #e5e5e5;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-header__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-header__logo {
+  font-weight: 700;
+  text-decoration: none;
+  color: #111;
+  font-size: 1.05rem;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+.nav-toggle span {
+  width: 22px;
+  height: 2px;
+  background: #111;
+  display: block;
+}
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.site-nav__list {
+  display: flex;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.site-nav__item { position: relative; }
+.site-nav__link {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  padding: 10px 12px;
+  color: #111;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 6px;
+}
+.site-nav__link:hover,
+.site-nav__link:focus {
+  background: #f2f2f2;
+}
+
+.dropdown {
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  min-width: 240px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity .15s ease, transform .15s ease, visibility .15s;
+}
+.has-dropdown:hover .dropdown,
+.has-dropdown:focus-within .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.dropdown li a {
+  display: block;
+  padding: 8px 10px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.92rem;
+}
+.dropdown li a:hover,
+.dropdown li a:focus {
+  background: #f2f2f2;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 860px) {
+  .nav-toggle { display: flex; }
+  .site-nav {
+    display: none;
+    width: 100%;
+    order: 3;
+  }
+  .site-nav.is-open { display: block; }
+  .site-nav__list { flex-direction: column; gap: 0; }
+  .site-nav__item { width: 100%; }
+  .dropdown {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    display: none;
+    padding-left: 12px;
+  }
+  .has-dropdown.is-open .dropdown { display: block; }
+  .site-header__inner { flex-wrap: wrap; }
+}
+</style>
+
 <header class="site-header">
   <div class="site-header__inner">
     <a class="site-header__logo" href="{{ '/' | relative_url }}">
