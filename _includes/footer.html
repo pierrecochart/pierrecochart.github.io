@@ -1,3 +1,53 @@
+<style>
+/* ===== Footer ===== */
+.site-footer {
+  border-top: 1px solid #e5e5e5;
+  margin-top: 60px;
+  background: #fafafa;
+}
+.site-footer__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.site-footer__col h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #666;
+  margin: 0 0 12px;
+}
+.site-footer__col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.site-footer__col li { margin-bottom: 8px; }
+.site-footer__col a {
+  color: #333;
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+.site-footer__col a:hover { text-decoration: underline; }
+
+.site-footer__bottom {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 20px 30px;
+  border-top: 1px solid #eee;
+  font-size: 0.85rem;
+  color: #666;
+}
+.site-footer__bottom a { color: #666; }
+
+@media (max-width: 860px) {
+  .site-footer__inner { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+
 <footer class="site-footer">
   <div class="site-footer__inner">
 
@@ -61,3 +111,28 @@
     <p>&copy; {{ 'now' | date: "%Y" }} <a href="https://uk.linkedin.com/in/pierrecochart">Pierre Cochart</a>. Built with simple HTML &amp; CSS | <a href="https://www.searchfoundry.co.uk">The Search Foundry</a></p>
   </div>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var toggle = document.getElementById('navToggle');
+  var nav = document.getElementById('siteNav');
+
+  if (toggle && nav) {
+    toggle.addEventListener('click', function () {
+      var isOpen = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', isOpen);
+    });
+  }
+
+  // On mobile, tapping a category button opens/closes its dropdown
+  // instead of relying on hover (which doesn't exist on touch devices).
+  document.querySelectorAll('.has-dropdown > .site-nav__link').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (window.innerWidth > 860) return; // desktop uses hover
+      var parent = btn.closest('.has-dropdown');
+      var isOpen = parent.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', isOpen);
+    });
+  });
+});
+</script>
