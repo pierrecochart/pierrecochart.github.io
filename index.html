@@ -4,13 +4,11 @@
     <meta name="google-site-verification" content="nZw-3T2nVHkAEfGiQ9xGuZg33b3NwjfYqwBkOh8eXXk" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Pierre Cochart | Helpful Web Tools for SEOs & Developers</title>
-    <meta name="description" content="A collection of free, open-source, client-side web utilities for SEOs and developers. Includes Image Cropper, SERP Simulator, and more tools in development.">
+    <meta name="description" content="A collection of free, open-source, client-side web utilities for SEOs and developers. Includes image tools, SEO generators, PPC calculators, and more.">
     <link rel="canonical" href="https://pierrecochart.github.io/">
-
     <link rel="icon" type="image/png" href="https://pierrecochart.github.io/favicon.png"/>
-
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -46,52 +44,44 @@
       }]
     }
     </script>
-
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pierrecochart.github.io/">
     <meta property="og:title" content="Pierre Cochart | Helpful Web Tools for SEOs & Developers">
     <meta property="og:description" content="Free, open-source utilities for developers and SEOs. Everything runs client-side—no data is ever uploaded.">
-    <meta property="og:image" content="https://github.com/pierrecochart.png">
-
+    <meta property="og:image" content="https://placehold.co/1200x630/0F6E8C/FAFAF7?font=roboto&text=Helpful+Web+Tools">
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://pierrecochart.github.io/">
     <meta property="twitter:title" content="Pierre Cochart | Helpful Web Tools for SEOs & Developers">
     <meta property="twitter:description" content="Free, open-source utilities for developers and SEOs. Everything runs client-side—no data is ever uploaded.">
-    <meta property="twitter:image" content="https://github.com/pierrecochart.png">
+    <meta property="twitter:image" content="https://placehold.co/1200x630/0F6E8C/FAFAF7?font=roboto&text=Helpful+Web+Tools">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    
+
     <style>
-        /* --- RESET & VARS --- */
         :root {
-            /* Modern Tech Dark Palette */
-            --bg-body: #0f172a;       /* Deep Slate */
-            --bg-card: #1e293b;       /* Lighter Slate */
-            --bg-card-hover: #334155;
-            
-            --text-main: #f1f5f9;     /* Off-white */
-            --text-muted: #94a3b8;    /* Muted Blue-Grey */
-            
-            --accent: #38bdf8;        /* Electric Cyan */
-            --accent-glow: rgba(56, 189, 248, 0.25);
-            --accent-hover: #0ea5e9;
-            
-            --border-color: #334155;
-            
-            --status-new-bg: rgba(34, 197, 94, 0.2);
-            --status-new-text: #4ade80;
-            
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 0 15px var(--accent-glow);
+            --paper: #FAFAF7;
+            --panel: #EFEEE7;
+            --ink: #191D22;
+            --ink-soft: #565C64;
+            --line: #DAD7CC;
+            --blueprint: #0F6E8C;
+            --blueprint-dark: #0B5570;
+            --blueprint-tint: #DCEAEE;
+            --amber: #E8A33D;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+            --card-shadow: 0 1px 2px rgba(25,29,34,0.06);
+            --card-shadow-hover: 0 10px 24px rgba(15,110,140,0.12);
         }
-
         * { box-sizing: border-box; }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
+            font-family: var(--font-body);
+            background-color: var(--panel);
+            color: var(--ink);
             margin: 0;
             padding: 0;
             line-height: 1.6;
@@ -101,81 +91,83 @@
         /* --- HERO SECTION --- */
         .hero-section {
             position: relative;
-            background: radial-gradient(circle at top center, #1e293b 0%, #0f172a 70%);
-            border-bottom: 1px solid var(--border-color);
-            padding: 80px 20px 60px;
+            background: var(--paper);
+            border-bottom: 1px solid var(--line);
+            padding: 90px 20px 60px;
             text-align: center;
-            overflow: hidden; /* Contains the canvas */
+            overflow: hidden;
         }
-
-        /* Canvas Animation Layer */
+        .hero-ruler {
+            height: 4px;
+            background-image: repeating-linear-gradient(90deg, var(--blueprint) 0 1px, transparent 1px 12px);
+            opacity: 0.5;
+            position: absolute;
+            top: 0; left: 0; right: 0;
+        }
         #hero-canvas {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1; /* Behind text */
-            opacity: 0.6; /* Subtle effect */
-            pointer-events: none; /* Let clicks pass through */
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            opacity: 0.7;
+            pointer-events: none;
         }
-
-        /* Content sits above animation */
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
+        .hero-content { position: relative; z-index: 2; }
 
         .site-title {
+            font-family: var(--font-display);
             font-size: 3rem;
             font-weight: 700;
-            color: var(--text-main);
+            color: var(--ink);
             margin: 0 0 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 15px;
-            letter-spacing: -0.05rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Stronger shadow for readability */
+            letter-spacing: -0.03em;
         }
-        
-        .site-title .material-icons-outlined { 
-            font-size: 48px; 
-            color: var(--accent);
-            text-shadow: 0 0 20px var(--accent-glow);
+        .site-title .material-icons-outlined {
+            font-size: 44px;
+            color: var(--blueprint);
         }
-
         .about-text {
             max-width: 650px;
-            margin: 0 auto 35px;
-            color: #cbd5e1; /* Slightly lighter for contrast against animation */
-            font-size: 1.15rem;
-            font-weight: 300;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            margin: 0 auto 30px;
+            color: var(--ink-soft);
+            font-size: 1.1rem;
+            font-weight: 400;
         }
-
         .author-badge {
             display: inline-flex;
             align-items: center;
-            background: rgba(15, 23, 42, 0.6); /* Semi-transparent bg */
-            color: var(--accent);
+            background: var(--blueprint-tint);
+            color: var(--blueprint-dark);
             padding: 6px 16px;
             border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.85rem;
+            font-family: var(--font-mono);
+            font-weight: 500;
+            font-size: 0.78rem;
+            letter-spacing: 0.03em;
             margin-bottom: 25px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            backdrop-filter: blur(8px);
+            border: 1px solid #B7D6DF;
         }
 
-        /* Coffee Button Style */
-        .bmc-btn-link img {
-            height: 44px;
-            border-radius: 8px;
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        .bmc-hero-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--blueprint);
+            color: #fff;
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 12px 22px;
+            border-radius: 6px;
+            transition: background .15s ease, transform .15s ease;
         }
-        .bmc-btn-link:hover img { transform: scale(1.05) rotate(-2deg); }
+        .bmc-hero-button:hover { background: var(--blueprint-dark); transform: translateY(-1px); }
+        .bmc-hero-button svg { width: 17px; height: 17px; flex-shrink: 0; }
 
         /* --- LAYOUT --- */
         .container {
@@ -183,277 +175,245 @@
             margin: 0 auto;
             padding: 40px 25px 100px;
         }
-
         .section-header {
             display: flex;
-            align-items: center;
+            align-items: baseline;
             margin-bottom: 30px;
             margin-top: 60px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--line);
             padding-bottom: 15px;
         }
-
+        .section-header .eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--blueprint);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: block;
+            margin-bottom: 4px;
+        }
         .section-header h2 {
+            font-family: var(--font-display);
             font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin: 0;
-            letter-spacing: -0.025em;
-        }
-
-        .section-header .count {
-            background: var(--bg-card);
-            color: var(--accent);
-            font-size: 0.8rem;
-            padding: 4px 10px;
-            border-radius: 6px;
-            margin-left: 12px;
             font-weight: 700;
-            border: 1px solid var(--border-color);
+            color: var(--ink);
+            margin: 0;
+            letter-spacing: -0.02em;
         }
-
+        .section-header .count {
+            background: var(--blueprint-tint);
+            color: var(--blueprint-dark);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-left: 12px;
+            font-weight: 600;
+        }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
         }
 
-        /* --- CARD STYLES --- */
+        /* --- CARD STYLES (corner-bracket signature, same as every tool page's related-tools cards) --- */
         .tool-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 28px;
+            position: relative;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 26px;
             display: flex;
             flex-direction: column;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: all 0.25s ease;
             text-decoration: none;
             color: inherit;
-            position: relative;
             height: 100%;
             box-shadow: var(--card-shadow);
         }
-
-        /* Hover Effect for Active Cards */
-        .tool-card.active:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-shadow-hover);
-            border-color: var(--accent);
-            background: var(--bg-card-hover);
+        .tool-card.active::before, .tool-card.active::after {
+            content: "";
+            position: absolute;
+            width: 12px; height: 12px;
+            border-color: var(--blueprint);
+            border-style: solid;
+            opacity: 0;
+            transition: opacity .2s ease;
         }
+        .tool-card.active::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+        .tool-card.active::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+        .tool-card.active:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow-hover);
+            border-color: var(--blueprint);
+        }
+        .tool-card.active:hover::before, .tool-card.active:hover::after { opacity: 1; }
 
         .card-header {
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
-
         .icon-box {
-            width: 52px;
-            height: 52px;
+            width: 48px; height: 48px;
             border-radius: 10px;
-            background: rgba(56, 189, 248, 0.1); /* Transparent Accent */
-            color: var(--accent);
+            background: var(--blueprint-tint);
+            color: var(--blueprint);
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.3s;
+            transition: background 0.25s, color 0.25s;
         }
-        
-        .tool-card.active:hover .icon-box {
-            background: var(--accent);
-            color: var(--bg-body);
-        }
-
-        .icon-box .material-icons-outlined { font-size: 30px; }
+        .tool-card.active:hover .icon-box { background: var(--blueprint); color: white; }
+        .icon-box .material-icons-outlined { font-size: 26px; }
 
         .tool-card h3 {
-            margin: 0 0 10px;
-            font-size: 1.25rem;
+            font-family: var(--font-display);
+            margin: 0 0 8px;
+            font-size: 1.15rem;
             font-weight: 600;
-            color: var(--text-main);
+            color: var(--ink);
         }
-
         .tool-card p {
             margin: 0;
-            font-size: 0.95rem;
-            color: var(--text-muted);
+            font-size: 0.92rem;
+            color: var(--ink-soft);
             flex-grow: 1;
-            line-height: 1.5;
+            line-height: 1.55;
         }
-
         .card-footer {
-            margin-top: 24px;
+            margin-top: 22px;
             display: flex;
             align-items: center;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 600;
-            color: var(--accent);
-            opacity: 0.9;
+            color: var(--blueprint);
         }
-
         .card-footer .arrow { margin-left: 6px; transition: transform 0.2s; }
         .tool-card.active:hover .arrow { transform: translateX(5px); }
 
-        /* --- PILLS & LABELS --- */
-        .status-pill {
-            font-size: 0.7rem;
+        /* --- IN DEVELOPMENT STYLES --- */
+        .status-pill.planned {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            padding: 4px 10px;
+            padding: 3px 9px;
             border-radius: 4px;
-            background: var(--bg-body);
-            color: var(--text-muted);
-            font-weight: 700;
-            border: 1px solid var(--border-color);
+            background: var(--panel);
+            color: var(--ink-soft);
+            font-weight: 600;
+            border: 1px solid var(--line);
         }
-        
-        .status-pill.new {
-            background: var(--status-new-bg);
-            color: var(--status-new-text);
-            border-color: transparent;
-            box-shadow: 0 0 10px rgba(74, 222, 128, 0.1);
-        }
-        
-        .status-pill.planned {
-             /* Keeping it muted for dev items */
-        }
-
-        /* --- IN DEVELOPMENT STYLES --- */
         .tool-card.dev {
-            background: rgba(30, 41, 59, 0.5); /* Transparent Card */
-            border: 1px dashed var(--border-color);
-            opacity: 0.7;
+            background: transparent;
+            border: 1px dashed var(--line);
+            opacity: 0.75;
             cursor: default;
         }
-        .tool-card.dev:hover {
-            border-color: var(--text-muted);
-            opacity: 1;
-        }
+        .tool-card.dev:hover { border-color: var(--ink-soft); opacity: 1; }
+        .tool-card.dev .icon-box { background: var(--panel); color: var(--ink-soft); }
+        .tool-card.dev h3 { color: var(--ink-soft); }
 
-        .tool-card.dev .icon-box {
-            background: var(--bg-body);
-            color: var(--text-muted);
-        }
-
-        .tool-card.dev h3 { color: var(--text-muted); }
-
-        /* --- FAQ SECTION --- */
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
+        /* --- FAQ SECTION (same accordion pattern used on every tool page) --- */
+        .faq-container { max-width: 800px; margin: 0 auto; }
         details.faq-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            margin-bottom: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
+            position: relative;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            padding: 4px 20px;
         }
-
-        details.faq-item:hover {
-            border-color: var(--text-muted);
-            background: var(--bg-card-hover);
+        details.faq-item::before, details.faq-item::after {
+            content: ""; position: absolute; width: 10px; height: 10px;
+            border-color: var(--blueprint); border-style: solid; opacity: 0.6;
         }
-
-        details.faq-item[open] {
-            border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.1);
-        }
-
+        details.faq-item::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+        details.faq-item::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+        details.faq-item[open] { border-color: var(--blueprint); }
         summary {
             list-style: none;
-            padding: 24px;
+            padding: 20px 0;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
             font-weight: 600;
-            font-size: 1.05rem;
-            color: var(--text-main);
+            font-size: 1rem;
+            color: var(--ink);
         }
-
         summary::-webkit-details-marker { display: none; }
-
-        summary .icon {
-            color: var(--accent);
-            transition: transform 0.3s ease;
-        }
-
-        details[open] summary .icon {
-            transform: rotate(180deg);
-        }
-
+        summary .icon { color: var(--blueprint); transition: transform 0.25s ease; }
+        details[open] summary .icon { transform: rotate(180deg); }
         .faq-answer {
-            padding: 0 24px 24px;
-            color: var(--text-muted);
+            padding: 0 0 20px;
+            color: var(--ink-soft);
             line-height: 1.7;
             font-size: 0.95rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid var(--panel);
             margin-top: 0;
-            padding-top: 16px;
+            padding-top: 14px;
         }
 
         /* --- FOOTER --- */
-        footer {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 80px;
-            background: var(--bg-body);
+        footer.site-cta-footer { background: var(--paper); border-top: 1px solid var(--line); margin-top: 40px; }
+        .footer-cta-inner {
+            max-width: 1140px; margin: 0 auto; padding: 40px 25px;
+            display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
         }
-        
-        footer a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: color 0.2s;
+        .footer-cta-text { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blueprint); margin: 0 0 4px; }
+        .footer-cta-heading { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--ink); margin: 0; }
+        .footer-cta-link {
+            font-family: var(--font-body); font-weight: 600; font-size: 0.9rem; color: #fff; background: var(--blueprint);
+            text-decoration: none; padding: 12px 20px; border-radius: 6px; white-space: nowrap; transition: background .15s ease;
         }
-        footer a:hover { color: var(--text-main); }
+        .footer-cta-link:hover { background: var(--blueprint-dark); }
+        .footer-bottom {
+            text-align: center; padding: 24px 20px 50px; color: var(--ink-soft); font-size: 0.88rem;
+        }
+        .footer-bottom a { color: var(--blueprint); text-decoration: none; }
+        .footer-bottom a:hover { text-decoration: underline; }
 
-        /* Mobile */
         @media (max-width: 600px) {
-            .site-title { font-size: 2.2rem; flex-direction: column; }
+            .site-title { font-size: 2.1rem; flex-direction: column; }
             .grid { grid-template-columns: 1fr; }
             .hero-section { padding: 60px 20px; }
         }
     </style>
 </head>
 <body>
-
 <div class="hero-section">
+    <div class="hero-ruler"></div>
     <canvas id="hero-canvas"></canvas>
-    
+
     <div class="hero-content">
         <h1 class="site-title">
             <span class="material-icons-outlined">handyman</span>
             Helpful Web Tools
         </h1>
-        
+
         <div class="author-badge">Created by Pierre Cochart</div>
-        
+
         <p class="about-text">
-            A collection of free, open-source utilities for developers and SEOs. 
+            A collection of free, open-source utilities for developers and SEOs.
             Everything runs client-side in your browser—no data is ever uploaded.
         </p>
-
-        <a href="https://www.buymeacoffee.com/PierreCochart" target="_blank" class="bmc-btn-link">
-            <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee">
+        <a href="https://www.buymeacoffee.com/PierreCochart" target="_blank" class="bmc-hero-button">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h14a2 2 0 0 1 2 2v1a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M20 12h1a2 2 0 0 1 2 2 3 3 0 0 1-3 3h-1" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 3c-.5 1-.5 1.8 0 2.5M12 3c-.5 1-.5 1.8 0 2.5M16 3c-.5 1-.5 1.8 0 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Buy me a coffee
         </a>
     </div>
 </div>
-
 <div class="container">
-
     <div class="section-header">
-        <h2>Image & Media Tools</h2>
-        <span class="count" style="background: transparent; border-color: var(--accent); color: var(--accent);">10</span>
+        <div>
+            <span class="eyebrow">Category</span>
+            <h2>Image &amp; Media Tools</h2>
+        </div>
+        <span class="count">10</span>
     </div>
-
     <div class="grid">
         <a href="https://pierrecochart.github.io/image-cropper/" class="tool-card active">
             <div class="card-header">
@@ -461,374 +421,280 @@
             </div>
             <h3>Bulk Image Cropper</h3>
             <p>Crop, resize, and convert images instantly in your browser. No server uploads required.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/image-background-remover/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">photo_filter</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Image Background Remover</h3>
-            <p>Automatically remove image backgrounds entirely in your browser using local AI.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <p>Remove image backgrounds with chroma-key colour picking, entirely in your browser.</p>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/color-palette-generator/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">color_lens</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Color Palette Generator</h3>
             <p>Generate beautiful color schemes and extract palettes from your images.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/duotone-generator/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">palette</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Duotone Generator</h3>
             <p>Apply stunning duotone effects to your photos for a professional, branded look.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/image-dithering-tool/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">blur_on</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Image Dithering Tool</h3>
-            <p>Apply retro dithering and halftone effects to images for unique web aesthetics.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <p>Apply retro Floyd-Steinberg dithering effects to images for unique web aesthetics.</p>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/advanced-image-cropping-tool/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">crop_rotate</span></div>
             </div>
             <h3>Advanced Image Cropper</h3>
             <p>Professional grade cropping with custom aspect ratios and precision controls.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/image-to-webp-converter/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">collections</span></div>
             </div>
             <h3>Image to WebP Converter</h3>
             <p>Convert PNG and JPG images to optimized WebP format for faster web performance.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-        
         <a href="https://pierrecochart.github.io/quickfav-favicon-maker/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">tab</span></div>
             </div>
             <h3>QuickFav Favicon Maker</h3>
-            <p>Generate consistent favicons from text, emojis, or images for your website.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <p>Generate consistent favicons from text, emojis, or an uploaded image, in every standard size.</p>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/svg-cleaner/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">cleaning_services</span></div>
             </div>
             <h3>SVG Cleaner</h3>
             <p>Client-side minifier to strip unnecessary SVG code.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/code-screenshot-image-creator/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">image</span></div>
             </div>
             <h3>Code Screenshot</h3>
             <p>Generate social-ready images of your code snippets.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
     </div>
 
     <div class="section-header">
-        <h2>SEO & Content Tools</h2>
-        <span class="count" style="background: transparent; border-color: var(--accent); color: var(--accent);">12</span>
+        <div>
+            <span class="eyebrow">Category</span>
+            <h2>SEO &amp; Content Tools</h2>
+        </div>
+        <span class="count">12</span>
     </div>
-
     <div class="grid">
         <a href="https://pierrecochart.github.io/canonical-generating-tool/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">link</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Canonical Generator</h3>
             <p>Quickly generate correct canonical tags with self-referencing and cross-domain options.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/useful-links-builder/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">list_alt</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Useful Links Builder</h3>
             <p>Build and stylise "useful links" boxes for the bottom of blog posts to improve engagement.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/hreflang-generator-tool/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">language</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Hreflang Generator</h3>
             <p>Create multi-regional and multi-lingual tags for international SEO deployments.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/website-migration-bulk-redirect-tool/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">alt_route</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Bulk Redirect Mapper</h3>
-            <p>Map old URLs to new ones and generate .htaccess or Nginx redirect rules instantly.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <p>Map old URLs to new ones and generate Apache, Nginx, or WordPress redirect rules instantly.</p>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/google-dork-search-operator-tool/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">saved_search</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Google Dork Builder</h3>
-            <p>Advanced search query builder to find indexing issues, PDF files, and sensitive data.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <p>Advanced search query builder to find indexing issues, PDF files, and exposed data.</p>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/keyword-mixer-tool/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">shuffle</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Keyword Mixer</h3>
             <p>Combine multiple lists of keywords to generate exhaustive lists of variations and match types.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/SERP-Snippet-Viewer-Optimiser/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">search</span></div>
             </div>
             <h3>SERP Simulator</h3>
-            <p>Preview and optimize how your website appears in Google search results (Desktop & Mobile).</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <p>Preview and optimize how your website appears in Google search results (Desktop &amp; Mobile).</p>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/seo-bulk-header-audit-tool/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">fact_check</span></div>
             </div>
             <h3>SEO Header Audit</h3>
             <p>Bulk check status codes, headers, and meta tags for multiple URLs.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/faq-generator/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">quiz</span></div>
             </div>
-            <h3>FAQ & Schema Generator</h3>
+            <h3>FAQ &amp; Schema Generator</h3>
             <p>Quickly create stylised FAQ accordions with integrated JSON-LD Schema. Perfect for WordPress.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/internal-link-weaver/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">hub</span></div>
             </div>
             <h3>Internal Link Weaver</h3>
-            <p>Visualise and optimize your internal linking strategy for better SEO.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <p>Automatically weave internal links into your content from a keyword-to-URL list.</p>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/word-character-counter-read-time/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">segment</span></div>
             </div>
-            <h3>Word & Character Counter</h3>
+            <h3>Word &amp; Character Counter</h3>
             <p>Real-time text analysis for SEO meta data and content length requirements.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/ai-blog-summarizer-button-generator/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">smart_button</span></div>
             </div>
             <h3>AI Blog Summarizer</h3>
             <p>Generate code for a "Summarize this" button to add AI capability to your blog.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
     </div>
 
     <div class="section-header">
-        <h2>PPC & Analytics</h2>
-        <span class="count" style="background: transparent; border-color: var(--accent); color: var(--accent);">3</span>
+        <div>
+            <span class="eyebrow">Category</span>
+            <h2>PPC &amp; Analytics</h2>
+        </div>
+        <span class="count">3</span>
     </div>
-
     <div class="grid">
         <a href="https://pierrecochart.github.io/google-adwords-campaign-architect-tool/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">architecture</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>AdWords Architect</h3>
             <p>Structure and build optimized Google Ads campaigns, ad groups, and keyword sets.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/roas-modeller/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">calculate</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>ROAS Modeller</h3>
-            <p>Forecast your Return on Ad Spend based on budgets, conversion rates, and margins.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <p>Model break-even ROAS and net profit based on budgets, conversion rates, and margins.</p>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/statistical-significance-calculator/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">query_stats</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Significance Calculator</h3>
             <p>Determine if your A/B test results are statistically valid and reliable for decision making.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
     </div>
 
     <div class="section-header">
-        <h2>Development & Utilities</h2>
-        <span class="count" style="background: transparent; border-color: var(--accent); color: var(--accent);">5</span>
+        <div>
+            <span class="eyebrow">Category</span>
+            <h2>Development &amp; Utilities</h2>
+        </div>
+        <span class="count">5</span>
     </div>
-
     <div class="grid">
         <a href="https://pierrecochart.github.io/document-html-link-remover/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">link_off</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Link Remover Tool</h3>
-            <p>Instantly strip hyperlinks from documents and HTML while preserving the text content.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <p>Strip, de-duplicate, or randomly sample HTML links in bulk while preserving text content.</p>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/word-doc-content-sanitizer/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">cleaning_services</span></div>
-                <span class="status-pill new">NEW</span>
             </div>
             <h3>Word Content Sanitizer</h3>
-            <p>Clean up messy Word formatting and hidden metadata for safe web-ready pasting.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <p>Clean up messy Word/Google Docs formatting and hidden metadata for safe web-ready pasting.</p>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/github-website-builder/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">web</span></div>
             </div>
             <h3>GitHub Website Builder</h3>
-            <p>A free GitHub website homepage builder to display projects in a simple, quick way.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <p>A free GitHub Pages portfolio builder — no coding required, SEO fields built in.</p>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/html-editor/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">code</span></div>
             </div>
             <h3>HTML Editor</h3>
             <p>A simple, open-source live HTML editor running entirely client-side.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
-
         <a href="https://pierrecochart.github.io/app-store-event-previewer/" class="tool-card active">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">event_note</span></div>
             </div>
             <h3>App Store Event Previewer</h3>
             <p>Preview how your In-App Events metadata and images appear on the App Store.</p>
-            <div class="card-footer">
-                Launch Tool <span class="arrow">→</span>
-            </div>
+            <div class="card-footer">Launch Tool <span class="arrow">→</span></div>
         </a>
     </div>
 
     <div class="section-header">
-        <h2>In Development</h2>
+        <div>
+            <span class="eyebrow">Roadmap</span>
+            <h2>In Development</h2>
+        </div>
         <span class="count">13</span>
     </div>
-
     <div class="grid">
-        
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">schema</span></div>
@@ -837,16 +703,14 @@
             <h3>Schema Visualizer</h3>
             <p>Visualize JSON-LD structure and dependencies.</p>
         </div>
-
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">rule</span></div>
                 <span class="status-pill planned">Planned</span>
             </div>
-            <h3>Canonical & Robots Check</h3>
+            <h3>Canonical &amp; Robots Check</h3>
             <p>Quick-check meta directives and conflict detection.</p>
         </div>
-
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">lock_open</span></div>
@@ -855,7 +719,6 @@
             <h3>JWT Debugger</h3>
             <p>Offline token decoder and expiry checker.</p>
         </div>
-
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">verified_user</span></div>
@@ -864,7 +727,6 @@
             <h3>SSL Decoder</h3>
             <p>Decode certificate chains and view raw data.</p>
         </div>
-
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">description</span></div>
@@ -873,7 +735,6 @@
             <h3>Gigabyte Log Viewer</h3>
             <p>Efficiently browse massive log files without crashing.</p>
         </div>
-
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">storage</span></div>
@@ -882,7 +743,6 @@
             <h3>SQL Anonymizer</h3>
             <p>Sanitize SQL dumps for safe sharing.</p>
         </div>
-
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">transform</span></div>
@@ -891,7 +751,6 @@
             <h3>CSV Streamer</h3>
             <p>Convert CSV to JSON or SQL streams.</p>
         </div>
-
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">share</span></div>
@@ -900,7 +759,6 @@
             <h3>Open Graph Generator</h3>
             <p>Create and preview social meta tags.</p>
         </div>
-
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">schedule</span></div>
@@ -909,7 +767,6 @@
             <h3>Cron Visualizer</h3>
             <p>Visual interface for complex cron schedules.</p>
         </div>
-
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">layers</span></div>
@@ -918,7 +775,6 @@
             <h3>CSS Shadow Tool</h3>
             <p>Layered box-shadow generator and previewer.</p>
         </div>
-
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">picture_as_pdf</span></div>
@@ -927,7 +783,6 @@
             <h3>PDF Split/Merge</h3>
             <p>Local-only PDF manipulation tools.</p>
         </div>
-
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">text_snippet</span></div>
@@ -936,7 +791,6 @@
             <h3>Client-Side OCR</h3>
             <p>Extract text from images using local Tesseract.js.</p>
         </div>
-        
         <div class="tool-card dev">
             <div class="card-header">
                 <div class="icon-box"><span class="material-icons-outlined">difference</span></div>
@@ -945,13 +799,14 @@
             <h3>JSON Diff Tool</h3>
             <p>Compare and highlight differences in JSON.</p>
         </div>
-
     </div>
 
     <div class="section-header">
-        <h2>Frequently Asked Questions</h2>
+        <div>
+            <span class="eyebrow">Support</span>
+            <h2>Frequently Asked Questions</h2>
+        </div>
     </div>
-
     <div class="faq-container">
         <details class="faq-item">
             <summary>
@@ -962,7 +817,6 @@
                 Yes, every tool listed here is 100% free and open-source. There are no paywalls, subscriptions, or hidden fees for using any of the utilities.
             </div>
         </details>
-
         <details class="faq-item">
             <summary>
                 Is my data secure when using these tools?
@@ -972,7 +826,6 @@
                 Absolutely. A core philosophy of this site is privacy-first architecture. All tools run entirely client-side within your browser. This means your images, code snippets, and data are never uploaded to a server or stored in a database.
             </div>
         </details>
-
         <details class="faq-item">
             <summary>
                 Can I use the generated images and code for commercial projects?
@@ -982,7 +835,6 @@
                 Yes, you have full rights to use any output (such as cropped images, generated favicons, or cleaned code) for both personal and commercial projects without attribution.
             </div>
         </details>
-
         <details class="faq-item">
             <summary>
                 Do these tools require an internet connection?
@@ -993,56 +845,59 @@
             </div>
         </details>
     </div>
-
 </div>
 
-<footer>
-    <p>&copy; 2026 <a href="https://uk.linkedin.com/in/pierrecochart">Pierre Cochart</a>. Built with simple HTML & CSS | <a href="https://www.searchfoundry.co.uk">The Search Foundry</a></p>
+<footer class="site-cta-footer">
+    <div class="footer-cta-inner">
+        <div>
+            <p class="footer-cta-text">Need more than a free tool?</p>
+            <p class="footer-cta-heading">The Search Foundry runs SEO &amp; PPC strategy for growing brands.</p>
+        </div>
+        <a class="footer-cta-link" href="https://searchfoundry.co.uk" target="_blank" rel="noopener">Talk to the agency ↗</a>
+    </div>
+    <p class="footer-bottom">&copy; <span id="footerYear"></span> <a href="https://uk.linkedin.com/in/pierrecochart">Pierre Cochart</a>. Built with simple HTML &amp; CSS | <a href="https://searchfoundry.co.uk">The Search Foundry</a></p>
 </footer>
 
-<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="PierreCochart" data-description="Support me on Buy me a coffee!" data-message="" data-color="#4285F4" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
-
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="PierreCochart" data-description="Support me on Buy me a coffee!" data-message="" data-color="#0F6E8C" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 <script>
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
     (function() {
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
-        
-        // Configuration for the effect
-        const config = {
-            particleCount: 70, // Number of dots
-            connectionRadius: 150, // Max distance to draw a line
-            mouseRadius: 200, // Radius of mouse interaction
-            baseColor: { r: 56, g: 189, b: 248 } // Your accent color (rgb)
-        };
 
+        // Configuration for the effect — recoloured to the blueprint palette
+        // (was electric cyan on a dark background; now a faint technical
+        // node network on the light hero, fitting the blueprint theme).
+        const config = {
+            particleCount: 70,
+            connectionRadius: 150,
+            mouseRadius: 200,
+            baseColor: { r: 15, g: 110, b: 140 } // #0F6E8C
+        };
         let particles = [];
         let mouse = { x: null, y: null };
 
-        // Handle Resize
         function resize() {
             width = canvas.width = canvas.parentElement.offsetWidth;
             height = canvas.height = canvas.parentElement.offsetHeight;
             initParticles();
         }
 
-        // Particle Class
         class Particle {
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.8; // Slow horizontal drift
-                this.vy = (Math.random() - 0.5) * 0.8; // Slow vertical drift
-                this.size = Math.random() * 2 + 1; // Size variance
-                this.opacity = Math.random() * 0.5 + 0.2; // Opacity variance
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.size = Math.random() * 2 + 1;
+                this.opacity = Math.random() * 0.35 + 0.15;
             }
-
             update() {
-                // Move particle
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Mouse interaction (repel/attract subtle effect)
                 if (mouse.x != null) {
                     let dx = mouse.x - this.x;
                     let dy = mouse.y - this.y;
@@ -1051,18 +906,16 @@
                         const forceDirectionX = dx / distance;
                         const forceDirectionY = dy / distance;
                         const force = (config.mouseRadius - distance) / config.mouseRadius;
-                        const directionX = forceDirectionX * force * 0.6; // Push strength
+                        const directionX = forceDirectionX * force * 0.6;
                         const directionY = forceDirectionY * force * 0.6;
                         this.x -= directionX;
                         this.y -= directionY;
                     }
                 }
 
-                // Bounce off edges
                 if (this.x < 0 || this.x > width) this.vx *= -1;
                 if (this.y < 0 || this.y > height) this.vy *= -1;
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -1073,32 +926,23 @@
 
         function initParticles() {
             particles = [];
-            // Adjust particle count based on screen width
             const count = width < 600 ? 35 : config.particleCount;
-            for (let i = 0; i < count; i++) {
-                particles.push(new Particle());
-            }
+            for (let i = 0; i < count; i++) particles.push(new Particle());
         }
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-
-            // Update and draw particles
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
-
-                // Connect particles
                 for (let j = i; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
-
                     if (distance < config.connectionRadius) {
                         ctx.beginPath();
-                        // Opacity based on distance (closer = more visible)
                         const opacity = 1 - (distance / config.connectionRadius);
-                        ctx.strokeStyle = `rgba(${config.baseColor.r}, ${config.baseColor.g}, ${config.baseColor.b}, ${opacity * 0.25})`; 
+                        ctx.strokeStyle = `rgba(${config.baseColor.r}, ${config.baseColor.g}, ${config.baseColor.b}, ${opacity * 0.2})`;
                         ctx.lineWidth = 1;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -1109,27 +953,22 @@
             requestAnimationFrame(animate);
         }
 
-        // Event Listeners
         window.addEventListener('resize', resize);
-        
-        // Track mouse position relative to canvas
+
         const heroSection = document.querySelector('.hero-section');
         heroSection.addEventListener('mousemove', function(e) {
             const rect = canvas.getBoundingClientRect();
             mouse.x = e.clientX - rect.left;
             mouse.y = e.clientY - rect.top;
         });
-        
         heroSection.addEventListener('mouseleave', function() {
             mouse.x = null;
             mouse.y = null;
         });
 
-        // Init
         resize();
         animate();
     })();
 </script>
-
 </body>
 </html>
